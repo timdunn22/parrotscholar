@@ -5,6 +5,13 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,
          :confirmable, :lockable, :timeoutable
   validates :username, :uniqueness => {:case_sensitive => false}
+
+  has_one :teacher
+  has_one :student
+  has_one :entrepreneur
+  has_one :counselor
+  mount_uploader :avatar, AvatarUploader
+
   attr_accessor :signin
 
      def self.process_omniauth(auth)

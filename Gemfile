@@ -9,6 +9,7 @@ group :development do
   gem 'sqlite3'
 end
 #gem 'railsthemes'
+gem 'suspenders'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
 gem 'figaro', '1.0'

@@ -1,4 +1,3 @@
-class Teacher < User
-  self.table_name = 'teachers'
-  has_one :user
+class Teacher < ActiveRecord::Base
+  belongs_to :user
 end

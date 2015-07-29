@@ -1,4 +1,4 @@
-class Student < User
-  self.table_name = 'students'
-  has_one :user
+class Student < ActiveRecord::Base
+
+  belongs_to :user
 end

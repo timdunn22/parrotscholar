@@ -1,0 +1,15 @@
+.row
+  .col-lg-6
+    .input-group
+      .input-group-btn
+        %button.btn.btn-default.dropdown-toggle{"aria-expanded" => "false", "aria-haspopup" => "true", "data-toggle" => "dropdown", :type => "button"}
+          Action
+          %span.caret
+        %ul.dropdown-menu
+          - ["Students", "Teachers", "Counselors", "Educational Entrepreneurs", "Institutes"].each do |user_type|
+            %li{id: "#{user_type}"}
+              .checkbox
+                %label
+                  %input{:type => "checkbox"}
+                    = user_type
+      %input.form-control{"aria-label" => "...", :type => "text"}

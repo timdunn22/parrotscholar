@@ -4,12 +4,16 @@ Rails.application.routes.draw do
 
   devise_for :users, :controllers => {:registrations =>
   "registrations"}
-  devise_for :counselors
-  devise_for :institutes
-  devise_for :entrepreneurs
-  devise_for :teachers
-  devise_for :students
+  resources :counselors
+  resources :institutes
+  resources :entrepreneurs
+  resources :teachers
+  resources :students
+
   get 'welcome/index'
+  get 'welcome/about'
+  get 'welcome/contact'
+  get 'welcome/faq'
   get "/auth/:provider/callback" => "autenthications#create"
   root to: 'welcome#index'
 

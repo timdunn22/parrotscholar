@@ -1,4 +1,4 @@
-class Counselor < User
-  self.table_name = 'counselors'
-  has_one :user
+class Counselor < ActiveRecord::Base
+
+  belongs_to :user
 end
