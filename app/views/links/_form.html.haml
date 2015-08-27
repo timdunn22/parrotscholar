@@ -1,0 +1,7 @@
+= form_for @link, remote: true do |f|
+  .form-group
+    = f.label :name, "Make a name for the link"
+    = f.text_field :name
+    = f.label :link_content, "Put the link here"
+    = f.text_field :link_content
+    = f.submit "Make another link"

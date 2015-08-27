@@ -9,6 +9,13 @@ group :development do
   gem 'sqlite3'
 end
 #gem 'railsthemes'
+gem 'fullcalendar-rails'
+gem 'simple_form'
+gem "cocoon"
+gem 'country_select'
+gem 'nested_form'
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.15.35'
 gem 'suspenders'
 gem 'sunspot_rails'
 gem 'sunspot_solr'
@@ -47,8 +54,12 @@ gem 'coffee-rails', '~> 4.1.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
+gem 'jquery-file-upload-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
+gem 'jquery-turbolinks'
+gem 'gon'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.

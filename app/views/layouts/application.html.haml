@@ -3,6 +3,7 @@
   %head
     %title Parrotscholar
     %meta{:content => "width=device=width, initial-scale=1", :name => "viewport"}
+    = Gon::Base.render_data
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
@@ -13,17 +14,17 @@
         %li= link_to "About", welcome_about_path
         %li= link_to "Contact", welcome_contact_path
         %li= link_to "FAQ", welcome_faq_path
-      .pull-right.user-info
-        - if current_user
-          = image_tag(current_user.avatar.tiny.url) if current_user.avatar?
-          Hello #{link_to (current_user.name || current_user.email), current_user}!
-          = link_to edit_user_registration_path, class: 'btn btn-primary btn-sm' do
-            %span.glyphicon.glyphicon-user
-          = link_to destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-sm' do
-            %span.glyphicon.glyphicon-log-out
-        - else
-          = link_to "Sign In", new_user_session_path
-          = link_to "Sign Up", new_user_registration_path
+        .pull-right.user-info
+          - if current_user
+            = image_tag(current_user.avatar.tiny.url) if current_user.avatar?
+            Hello #{link_to (current_user.name || current_user.email), current_user}!
+            = link_to edit_user_registration_path, class: 'btn btn-primary btn-sm' do
+              %span.glyphicon.glyphicon-user
+            = link_to destroy_user_session_path, method: :delete, class: 'btn btn-primary btn-sm' do
+              %span.glyphicon.glyphicon-log-out
+          - else
+            = link_to "Sign In", new_user_session_path
+            = link_to "Sign Up", new_user_registration_path
       - if flash[:notice]
         .alert.alert-success
           %button.close{"data-dismiss" => "alert", :type => "button"} &times;

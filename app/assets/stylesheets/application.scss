@@ -12,13 +12,19 @@
  *
  *= require_tree .
  *= require_self
+
  */
  @import "bootstrap-sprockets";
+ @import 'bootstrap-datetimepicker';
  @import "bootstrap";
  .user-info {
 
     margin-top: 9px;
   }
+
+.tab-content{
+  margin-top: 50px;
+}
 
   .nav {
     margin-top: 5px;

@@ -1,0 +1,36 @@
+= form_for user_role do |f|
+  .form-group
+    - if $user_type == "student"
+      = f.label description_type, "Please describe yourself and your interests."
+    - elsif $user_type == "teacher"
+      = f.label description_type, "Please explain why people should pick you to be their teacher."
+    %p
+    = f.text_area description_type, class: 'form-control', placeholder: "Make it interesting!"
+
+  .form-group
+    %h4= "What kind of course would you like to #{role_type}?"
+  .form-group
+    = f.label :course_type, "Self paced course", :value => "self paced"
+    = f.radio_button :course_type, "self paced"
+    = f.label :course_type, "Instructor paced course", :value => "instructor paced"
+    = f.radio_button :course_type, "self paced"
+    = f.label :course_type, "Not important", :value => ""
+    = f.radio_button :course_type, ""
+  - if $user_type == "student"
+    %h4 Would you like to work with a career counselor?
+    .form-group
+      = f.check_box :counselor_interest
+      = f.label :counselor_interest, "I would like to"
+  - elsif $user_type == "teacher"
+    %h4 What kind of conditions will you teach under?
+    .form-group
+      = f.radio_button :price_negotiation, "I am willing to negotiate prices"
+      = f.label :price_negotiation, "I am willing to negotiate prices"
+      = f.radio_button :price_negotiation, "I will only teach with set prices"
+      = f.label :price_negotiation, "I will only teach with set prices"
+      = f.radio_button :price_negotiation, "Am willing to consider either"
+      = f.label :price_negotiation, "Am willing to consider either"
+      = f.radio_button :price_negotiation, "Not decided"
+      = f.label :price_negotiation, "Not decided"
+  .form-group
+    = f.submit "Continue Signup", class: 'btn btn-success'

@@ -1,0 +1,7 @@
+- @users_preferences.each do |preference|
+  = "I want #{preference.user_set} to see"
+  %p
+  %ul
+    - $preferences.each do |pref|
+      - if preference.send(pref)
+        %li= pref

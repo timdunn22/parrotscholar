@@ -1,0 +1,22 @@
+- if !@all_signed_up
+  = form_for @user do |f|
+    %h3 Would you like to sign up as ?
+    .form-group
+      - [' a Student', ' a Teacher', 'a Counselor', 'an Entrepreneur', 'an Institutional Representative'].each do |type|
+        = f.radio_button :user_type, type
+        = f.label :user_type, type, :value => type
+    .form-group
+      = f.submit "Continue sign up", class: 'btn btn-success'
+- else
+  %ul.nav.nav-tabs
+    %li.active
+      =link_to "Profile", "#profile", html_options = { "data-toggle" => "tab" }
+    - ["preferences","student_groups","classes","files"].each do |tab|
+      %li
+        =link_to "#{tab.split('_').join(" ")}", "##{tab}", html_options = { "data-toggle" => "tab" }
+    .tab-content
+      #profile.tab-pane.fade.in.active
+        = render partial: 'profile'
+      - ["preferences","student_groups","classes","files"].each do |tab|
+        .tab-pane.fade{:id => "#{tab}"}
+          = render partial: tab

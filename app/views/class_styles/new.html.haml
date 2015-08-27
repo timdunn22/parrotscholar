@@ -1,0 +1,35 @@
+= form_for @user do |f|
+  %h1 Kinds of classes
+  %h4= @heading_styles
+  = form_tag class_styles_path do
+    .form-group
+    = f.fields_for :class_types, current_user.class_types.build do |field|
+      -@types_hash.each do |type,string|
+        = field.check_box type
+        %b= string
+    %h4 I am in interested in having __________ in my classes
+    .form-group
+      = f.fields_for :class_styles, current_user.class_styles.build do |field|
+        - $styles.each do |style|
+          = field.check_box style
+          %b= columns_to_string(style)
+    %h1 Profile Preferences
+    %h4= "For the following kind of user or organization please specify what you are ok with them seeing as a #{$user_type}"
+    .form-group
+      %table.table
+        %thead
+          %tr
+            %th People
+            - $preferences.each do |preference|
+              %th= preference
+        %tbody
+          - $user_types.each do |user|
+            %tr
+              = f.fields_for :profile_policies, current_user.profile_policies.build do |field|
+                %td= user
+                - $preferences.each do |preference|
+                  = field.hidden_field :user_set, value: user
+                  %td= field.check_box preference
+    .form-group
+      = link_to "Previous", new_users_interest_path, class: 'btn btn-success'
+      = submit_tag "Continue #{$user_type.capitalize} Sign up",class: 'btn btn-success'

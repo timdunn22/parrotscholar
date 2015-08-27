@@ -1,0 +1,5 @@
+= f.label "File Description"
+%br
+= f.text_area :file_description, class: 'form-control'
+= f.file_field :file_name
+= f.hidden_field :file_type, value: type

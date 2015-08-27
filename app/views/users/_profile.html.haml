@@ -1,0 +1,20 @@
+= image_tag(@user.avatar.profile.url)
+%p
+= "Name: #{@user.name}"
+%br
+= "Username: #{@user.username}"
+%br
+= "Email: #{@user.email}"
+%br
+= "Gender: #{@user.gender.capitalize}"
+%br
+= "Birthday: #{simple_date(@user.birthday)}"
+%br
+= "Skill description: #{@user.skill_description}"
+%br
+= "Education Level: #{@user.education_level}"
+- if @user.degree?
+  %br
+  = "Degree: #{@user.degree}"
+%br
+= "You have the following kind of accounts: #{@types}" 

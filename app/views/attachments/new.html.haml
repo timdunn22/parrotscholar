@@ -1,0 +1,17 @@
+%h1 Uploading files
+= form_for current_user do |f|
+  -# , url: attachments_path , multipart: true, method: :post
+  %h4 Please upload a profile picture
+  .form-group
+    = f.file_field :avatar
+  - @file_types.each do |type|
+    %h4= "Please upload any #{type.split('-').join(" ")} related files"
+    .form-group
+      = f.fields_for :attachments, current_user.attachments.build do |file_form|
+        = render partial: 'attachment_fields', locals: {f: file_form, type:type}
+    .form-group
+      = link_to_add_association 'Add another file', f,
+        :attachments, append: true, render_options: {locals: { type: type }}
+  .form-group
+    = link_to "Previous", new_users_interest_path, class: 'btn btn-success'
+    = submit_tag "Continue Student Sign up",class: 'btn btn-success'

@@ -1,0 +1,4 @@
+%p
+= text_field_tag "interest#{$interests_count}"
+%b=" _____________________________      Competency"
+= select_tag "interest#{$interests_count}competency", get_levels.html_safe

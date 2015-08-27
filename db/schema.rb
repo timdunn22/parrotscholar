@@ -11,7 +11,40 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150729212040) do
+ActiveRecord::Schema.define(version: 20150821192220) do
+
+  create_table "attachments", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "file_name"
+    t.text    "file_description"
+    t.string  "file_type"
+  end
+
+  add_index "attachments", ["user_id"], name: "index_attachments_on_user_id"
+
+  create_table "class_styles", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "user_type"
+    t.boolean "instant_messaging"
+    t.boolean "video_conferencing"
+    t.boolean "screen_sharing"
+    t.boolean "file_sharing"
+    t.boolean "audio"
+  end
+
+  add_index "class_styles", ["user_id"], name: "index_class_styles_on_user_id"
+
+  create_table "class_types", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "user_type"
+    t.boolean "one_one"
+    t.boolean "one_many"
+    t.boolean "many_one"
+    t.boolean "institute"
+    t.boolean "many_many"
+  end
+
+  add_index "class_types", ["user_id"], name: "index_class_types_on_user_id"
 
   create_table "counselors", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -21,10 +54,28 @@ ActiveRecord::Schema.define(version: 20150729212040) do
 
   add_index "counselors", ["user_id"], name: "index_counselors_on_user_id"
 
+  create_table "days_availables", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "user_type"
+    t.boolean "monday_available"
+    t.boolean "tuesday_available"
+    t.boolean "wednesday_available"
+    t.boolean "thursday_available"
+    t.boolean "friday_available"
+    t.boolean "saturday_available"
+    t.boolean "sunday_available"
+  end
+
+  add_index "days_availables", ["user_id"], name: "index_days_availables_on_user_id"
+
   create_table "entrepreneurs", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "user_id"
+    t.string   "desired_role"
+    t.text     "institute_description"
+    t.text     "experience_description"
+    t.text     "institute_policies_interests"
   end
 
   add_index "entrepreneurs", ["user_id"], name: "index_entrepreneurs_on_user_id"
@@ -34,18 +85,50 @@ ActiveRecord::Schema.define(version: 20150729212040) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "students", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+  create_table "links", force: :cascade do |t|
+    t.string   "name"
     t.integer  "user_id"
+    t.string   "link_content"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "links", ["user_id"], name: "index_links_on_user_id"
+
+  create_table "profile_policies", force: :cascade do |t|
+    t.integer "user_id"
+    t.string  "user_type"
+    t.boolean "class_preferences"
+    t.boolean "profile_details"
+    t.boolean "files_uploaded"
+    t.boolean "class_enrolled"
+    t.boolean "schedule"
+    t.string  "user_set"
+    t.boolean "student_groups"
+  end
+
+  add_index "profile_policies", ["user_id"], name: "index_profile_policies_on_user_id"
+
+  create_table "students", force: :cascade do |t|
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
+    t.integer  "user_id"
+    t.text     "self_description"
+    t.datetime "available_start_date"
+    t.string   "course_type"
+    t.string   "profile_visible"
+    t.boolean  "counselor_interest"
   end
 
   add_index "students", ["user_id"], name: "index_students_on_user_id"
 
   create_table "teachers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.integer  "user_id"
+    t.text     "hire_description"
+    t.string   "course_type"
+    t.string   "price_negotiation"
   end
 
   add_index "teachers", ["user_id"], name: "index_teachers_on_user_id"
@@ -87,5 +170,24 @@ ActiveRecord::Schema.define(version: 20150729212040) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   add_index "users", ["unlock_token"], name: "index_users_on_unlock_token", unique: true
+
+  create_table "users_interests", force: :cascade do |t|
+    t.string  "subject"
+    t.string  "user_type"
+    t.integer "user_id"
+    t.string  "competency"
+  end
+
+  add_index "users_interests", ["user_id"], name: "index_users_interests_on_user_id"
+
+  create_table "users_time_slots", force: :cascade do |t|
+    t.string   "user_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
+    t.string   "user_type"
+    t.boolean  "available"
+  end
+
+  add_index "users_time_slots", ["user_id"], name: "index_users_time_slots_on_user_id"
 
 end

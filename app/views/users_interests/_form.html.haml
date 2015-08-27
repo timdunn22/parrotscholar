@@ -1,0 +1,21 @@
+%h4= "What are you interested in #{@user_process_type}?"
+%h6
+  %em (1 represents total beginners while 10 represents the best professionals)
+= form_for current_user do |f|
+  .form-group#level_list
+    - current_user.users_interests.each do |interest|
+      = f.fields_for :users_interests, interest do |interest_form|
+        %ul
+          = interest_form.check_box :active
+          = interest_form.hidden_field :user_type
+          = interest_form.hidden_field :subject
+          %b= interest.subject
+          %b= " _____________________________   and my Competency in this subject is"
+          = interest_form.select :competency, get_levels.html_safe
+  .form-group
+    = link_to_add_association "Add another subject of interest", f,
+      :users_interests, render_options: {locals: {user_typ: $user_type}}
+  .form-group
+    = link_to "Previous", user_types_route($user_type), class: 'btn btn-success'
+    = f.submit "Continue sign up", class: 'btn btn-success'
+= button_to "Add another subject of interest", {controller: "users_interests", action: "add_level"},  remote: true

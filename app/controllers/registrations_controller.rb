@@ -1,23 +1,23 @@
 class RegistrationsController < Devise::RegistrationsController
-  def update
+
+ def update
    new_params = params.require(:user).permit(:email,
    :username, :current_password, :password,
-   :password_confirmation)
+   :password_confirmation, :avatar, :name)
    change_password = true
    if params[:user][:password].blank?
      params[:user].delete("password")
      params[:user].delete("password_confirmation")
-  ￼￼   new_params = params.require(:user).permit(:email,
-     :username)
+     new_params = params.require(:user).permit(:email,
+     :username, :avatar, :name)
      change_password = false
    end
-
    @user = User.find(current_user.id)
    is_valid = false
    if change_password
      is_valid = @user.update_with_password(new_params)
    else
-     @user.update_without_password(new_params)
+     is_valid = @user.update_without_password(new_params)
    end
    if is_valid
      set_flash_message :notice, :updated
@@ -27,6 +27,14 @@ class RegistrationsController < Devise::RegistrationsController
      render "edit"
    end
  end
+def new
+
+  $education_levels = ["not specified", "some high school", "high school graduate or diploma", "some college",
+    "associates degree", "bachelors degree", "post graduate degree"]
+  super
+end
+
+
 
   def destroy
     @user = User.find(current_user.id)
@@ -38,4 +46,7 @@ class RegistrationsController < Devise::RegistrationsController
       render "edit"
     end
   end
+
+
+
 end

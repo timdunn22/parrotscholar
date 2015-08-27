@@ -1,20 +1,42 @@
 Rails.application.routes.draw do
-  get 'registrations/update'
+  match 'links/add_other' => 'links#add_other', via: [:get, :post]
+  resources :links
 
+  get 'time_slots/new'
+
+  get 'profile_policies/new'
+
+
+  get 'attachments/add_file'
+
+  get 'class_types/new'
+
+  get 'class_styles/new'
+
+  get 'studentss/new'
+
+  get 'teachers/new'
+
+  get 'registrations/update'
+  match 'users_interests/add_level' => 'users_interests#add_level', via: [:get, :post]
 
   devise_for :users, :controllers => {:registrations =>
-  "registrations"}
+  "registrations", :omniauth_callbacks => "omniauth_callbacks"}
+  resources :attachments
+  resources :class_styles
+  resources :class_types
   resources :counselors
   resources :institutes
   resources :entrepreneurs
   resources :teachers
   resources :students
-
+  resources :users
+  resources :users_interests
   get 'welcome/index'
   get 'welcome/about'
   get 'welcome/contact'
   get 'welcome/faq'
-  get "/auth/:provider/callback" => "autenthications#create"
+  #get "/auth/:provider/callback" => "autenthications#create"
   root to: 'welcome#index'
 
   # The priority is based upon order of creation: first created -> highest priority.

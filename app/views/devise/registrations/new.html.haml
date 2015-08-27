@@ -19,6 +19,29 @@
         = f.label :password_confirmation
         = f.password_field :password_confirmation, class: 'form-control', placeholder: "Enter password confirmation"
       .form-group
+        = f.label 'Gender'
+        %br/
+        = f.radio_button :gender, 'male'
+        = f.label :gender, 'Male', :value => 'male'
+        = f.radio_button :gender, 'female'
+        = f.label :gender, 'Female', :value => 'female'
+        = f.radio_button :gender, 'not specified'
+        = f.label :gender, 'Do not Want to say', :value => 'not specified'
+      .form-group
+        = f.label :birthday, 'Birthday'
+        = f.date_select :birthday,class: 'form-control', :start_year => 1900
+      .form-group
+        = f.label :skill_description, 'Please describe your skills'
+        %br
+        = f.text_area :skill_description, class: 'form-control'
+      .form-group
+        - $education_levels.each do |level|
+          = f.radio_button :education_level, level
+          = f.label :education_level, level
+      .form-group
+        = f.label :degree, 'Degree obtained'
+        = f.text_field :degree, class: 'form-control', placeholder: "Enter Degree"
+      .form-group
         = f.submit "Sign up", class: 'btn btn-success'
       .form-group
         = render "devise/shared/links"

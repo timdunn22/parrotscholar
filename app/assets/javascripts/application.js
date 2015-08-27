@@ -11,6 +11,15 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
+//= require moment
+//= require bootstrap-sprockets
+//= require bootstrap-datetimepicker
 //= require turbolinks
+//= require jquery_nested_form
+//= require cocoon
 //= require_tree .
+$(function () {
+              $('#datetimepicker1').datetimepicker();
+          });

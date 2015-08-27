@@ -1,0 +1,6 @@
+%h1 Please add any links
+.new_links
+  = render partial: 'form'
+.form-group
+  = link_to "Previous", new_attachment_path, class: 'btn btn-success'
+  = link_to "Finish #{$user_type} sign up", user_path(current_user), class: 'btn btn-success'

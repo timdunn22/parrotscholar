@@ -1,0 +1,4 @@
+- @attachments.each do |file|
+  %a{:href => file.file_name}= "#{file.file_description}"
+  = link_to "Delete this file", method: :delete,remote:true, class:'btn btn-danger'
+  %br/

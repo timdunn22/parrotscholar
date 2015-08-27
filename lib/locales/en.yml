@@ -1,0 +1,12 @@
+en:
+  faker:
+    user:
+      gender: [male, female]
+      education_level: [not specified, some high school, high school graduate or diploma, some college, associates degree, bachelors degree, post graduate degree]
+      type: [one_one, one_many, many_one, many_many, institute]
+      core: ["teacher", "entrepreneur", "student"]
+    course:
+      styles: [true, false]
+      negotiate: [I am willing to negotiate prices, I will only teach with set prices, Am willing to consider either, Not decided]
+      subject: [Technology, "Business & Entrepreneurship", "Finance & Economics", "Humanities and Social Sciences",  "Mathematics", "Fine Arts", "Biology and Medicine","Agriculture and Environment", "Language and Culture", "Astronomy"]
+      kind: ["self paced", "instructor paced",""]
