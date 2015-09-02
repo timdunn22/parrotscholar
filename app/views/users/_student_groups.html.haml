@@ -1,0 +1,15 @@
+= link_to "Make a student Group", new_student_group_path
+- @user.student_groups.each do |group|
+  %h3=  group.name
+  %br/
+  = link_to "Edit this group", edit_student_group_path(group)
+  %p
+  = "Expectations Description: #{group.expectations_description}"
+  %br/
+  = "Preferred size of group: #{group.preferred_size} students"
+  %h5 As a member of this group my role is
+  = "A #{StudentGroupMember.where(user_id: current_user.id, student_group_id: group.id).first.role}"
+  %br/
+  = "And my responsibilities and rights are:"
+  %br/
+  = StudentGroupMember.where(user_id: current_user.id, student_group_id: group.id).first.role_description

@@ -18,6 +18,11 @@ class TeachersController < ApplicationController
       flash[:error] = "There was an error with the information you provided. Please try again."
     end
   end
+  def edit
+    
+  end
+  def update
+  end
 
   private
     def teacher_params

@@ -17,4 +17,15 @@
   %br
   = "Degree: #{@user.degree}"
 %br
-= "You have the following kind of accounts: #{@types}" 
+= "You have the following kind of accounts: "
+- @types.each do |type|
+  = link_to type, user_types_route(type,"edit",@user)
+%p
+= "Are you interested in signing up as a "
+- @non_types.each do |nontype|
+  = link_to "#{nontype.capitalize}?", user_types_route(nontype)
+%br
+= "You are interested in learning:"
+- @user.type_interests("student").each do |interest|
+  = interest.subject
+  = "with a competency of #{interest.competency}"

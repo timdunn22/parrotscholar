@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150821192220) do
+ActiveRecord::Schema.define(version: 20150901042636) do
 
   create_table "attachments", force: :cascade do |t|
     t.integer "user_id"
@@ -53,6 +53,16 @@ ActiveRecord::Schema.define(version: 20150821192220) do
   end
 
   add_index "counselors", ["user_id"], name: "index_counselors_on_user_id"
+
+  create_table "courses", force: :cascade do |t|
+    t.string   "name"
+    t.float    "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+  end
+
+  add_index "courses", ["user_id"], name: "index_courses_on_user_id"
 
   create_table "days_availables", force: :cascade do |t|
     t.integer "user_id"
@@ -108,6 +118,27 @@ ActiveRecord::Schema.define(version: 20150821192220) do
   end
 
   add_index "profile_policies", ["user_id"], name: "index_profile_policies_on_user_id"
+
+  create_table "student_group_members", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "student_group_id"
+    t.string   "role"
+    t.text     "role_description"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+  end
+
+  add_index "student_group_members", ["student_group_id"], name: "index_student_group_members_on_student_group_id"
+  add_index "student_group_members", ["user_id"], name: "index_student_group_members_on_user_id"
+
+  create_table "student_groups", force: :cascade do |t|
+    t.string   "name"
+    t.string   "preferred_size"
+    t.text     "expectations_description"
+    t.string   "price_range"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
 
   create_table "students", force: :cascade do |t|
     t.datetime "created_at",           null: false

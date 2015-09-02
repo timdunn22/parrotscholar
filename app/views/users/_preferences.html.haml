@@ -1,7 +1,10 @@
-- @users_preferences.each do |preference|
-  = "I want #{preference.user_set} to see"
-  %p
-  %ul
-    - $preferences.each do |pref|
-      - if preference.send(pref)
-        %li= pref
+- if @users_preferences != []
+  - @users_preferences.each do |preference|
+    = "I want #{preference.user_set} to see"
+    %p
+    %ul
+      - $preferences.each do |pref|
+        - if preference.send(pref)
+          %li= "#{pref.split('_').join(" ")} on my #{preference.user_type} profile"
+- else
+  = link_to "Make new Profile preferences", class_styles_new_path

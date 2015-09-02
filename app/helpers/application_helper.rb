@@ -9,13 +9,13 @@ module ApplicationHelper
     end
     new_column.join(" ")
   end
-  def user_types_route(user_type)
-    if user_type == "student"
-      new_student_path
-    elsif user_type == "teacher"
-      new_teacher_path
-    elsif user_type == "entrepreneur"
-      new_entrepreneur_path
-    end      
+  def user_types_route(user_type,action="new",user=nil)
+     
+    if action != "new"
+      user_pass_in = user.send(user_type).id
+      eval("#{action}_#{user_type}_path(#{user_pass_in})")
+    else
+      self.send("#{action}_#{user_type}_path")
+    end
   end
 end

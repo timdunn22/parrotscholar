@@ -10,29 +10,35 @@ class User < ActiveRecord::Base
   validates :username, :uniqueness => {:case_sensitive => false}
   # validates_presence_of :uid, :provider
   # validates_uniqueness_of :uid, :scope => :provider
-  has_one :teacher
-  has_one :student
-  has_one :entrepreneur
-  has_many :attachments
-  has_many :users_interests
-  has_many :class_styles
-  has_many :class_types
-  has_many :time_slots
-  has_many :profile_policies
-  has_many :links
+  has_one :teacher, dependent: :destroy
+  has_one :student, dependent: :destroy
+  has_one :entrepreneur, dependent: :destroy
+  has_many :attachments, dependent: :destroy
+  has_many :users_interests, dependent: :destroy
+  has_many :class_styles, dependent: :destroy
+  has_many :class_types, dependent: :destroy
+  has_many :time_slots, dependent: :destroy
+  has_many :profile_policies, dependent: :destroy
+  has_many :links, dependent: :destroy
+  has_many :student_groups, through: :student_group_members
+  has_many :student_group_members, dependent: :destroy
+  has_many :courses
   accepts_nested_attributes_for :attachments,:reject_if => lambda { |a| a[:file_name].blank? }, :allow_destroy => true
   accepts_nested_attributes_for :class_types,:reject_if => lambda { |a| !$types.any? {|type| a[type]=="1"} }, :allow_destroy => true
   accepts_nested_attributes_for :class_styles,:reject_if => lambda { |a| !$styles.any? {|style| a[style]=="1"} }, :allow_destroy => true
   accepts_nested_attributes_for :profile_policies,:reject_if => lambda { |a| !$preferences.any? {|preference| a[preference]=="1"} }, :allow_destroy => true
   accepts_nested_attributes_for :users_interests, :reject_if => lambda {|a| a[:active]== "0" || a[:subject].blank?}, :allow_destroy => true
-
+  accepts_nested_attributes_for :student_group_members
   mount_uploader :avatar, AvatarUploader
-
+  # adding search functionality to my app
   attr_accessor :signin, :user_type
 
 
   def interests
     UsersInterest.where(user_id: self.id)
+  end
+  def type_interests(type)
+    UsersInterest.where(user_id:self.id, user_type: type)
   end
   def profile_preferences
     ProfilePolicy.where(user_id: self.id)
@@ -40,6 +46,12 @@ class User < ActiveRecord::Base
   def self.find_for_oauth(auth)
     find_or_create_by(uid: auth.uid, provider: auth.provider)
   end
+  ["student","teacher","entrepreneur"].each do |type|
+    define_method("is_#{type}?") do
+      User.find_by(id: self.id).send(type)
+    end
+  end
+
 
      def self.process_omniauth(auth)
        where(provider: auth.provider, uid: auth.uid).first_or_create do |user|

@@ -11,17 +11,20 @@ class UsersController < ApplicationController
   end
   def show
 
-    @attachments = Attachment.where(user_id:current_user.id)
+
     @user = User.find(params[:id])
     @users_preferences = @user.profile_preferences
-    if current_user.present? && @user == current_user
-      if (Teacher.find_by_user_id(current_user.id) != nil) || (Student.find_by_user_id(current_user.id) != nil) || (Counselor.find_by_user_id(current_user.id) != nil) || (Entrepreneur.find_by_user_id(current_user.id) != nil)
+    @attachments = Attachment.where(user_id:@user.id)
+
+    if current_user.present?
+      if (@user.is_teacher? || @user.is_student? || @user.is_entrepreneur? )
         @all_signed_up = true
       else
         @all_signed_up = false
       end
     end
     @types = user_types(@user)
+    @non_types = $core_user_types - @types
 
 
   end

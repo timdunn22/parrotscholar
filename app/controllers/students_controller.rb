@@ -20,8 +20,18 @@ class StudentsController < ApplicationController
     end
 
   end
-
-
+  def edit
+    @student = Student.find(params[:id])
+  end
+  def update
+    @student = Student.find(params[:id])
+    @user = @student.user
+    if @student.update_attributes(student_params)
+      redirect_to @user, :notice => "Your student information was updated successfully!"
+    else
+      redirect_to @user, :alert => "There was an ERROR updating your student information!"
+    end
+  end
   private
     def student_params
       params.require(:student).permit(:self_description,

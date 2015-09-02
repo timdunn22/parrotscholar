@@ -21,12 +21,13 @@
           %tr
             %th People
             - $preferences.each do |preference|
-              %th= preference
+              %th= preference.split("_").join(" ")
         %tbody
           - $user_types.each do |user|
             %tr
               = f.fields_for :profile_policies, current_user.profile_policies.build do |field|
                 %td= user
+                = field.hidden_field :user_type, value: $user_type
                 - $preferences.each do |preference|
                   = field.hidden_field :user_set, value: user
                   %td= field.check_box preference

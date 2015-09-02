@@ -1,0 +1,6 @@
+= simple_form_for @course do |f|
+  .form-group
+    = f.input :name, label: "Name"
+  .form-group
+    = f.input :price, label: "Price"
+  = f.submit "Create this course", class: "btn btn-success"

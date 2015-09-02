@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  resources :courses
+
+  resources :student_groups
+
   match 'links/add_other' => 'links#add_other', via: [:get, :post]
   resources :links
 

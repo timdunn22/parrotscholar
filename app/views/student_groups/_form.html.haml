@@ -1,0 +1,16 @@
+= simple_form_for @student_group do |f|
+  .form-group
+    = f.input :name, label: "Name", class: "form-control"
+  .form-group
+    = f.input :preferred_size, label: "Preferred Size", class: "form-control"
+  .form-group
+    = f.input :expectations_description, label: "Expectations Description", class: "form-control"
+  .form-group
+    = f.input :price_range, label: "Price Range", class: "form-control"
+  %p Below please specify your role in this group
+  .form-group
+    = f.fields_for :student_group_members, @student_group_member do |field|
+      = field.input :role, label: "My Role", class: "form-control"
+      = field.input :role_description, label: "The rights and responsibilities of this role", class: "form-control"
+      = field.hidden_field :user_id
+  = f.submit "#{@group_action} this group", class: "btn btn-success"
